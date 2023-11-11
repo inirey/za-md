@@ -23,12 +23,12 @@ const { fetchBuffer, buffergif } = require("./client_main/client_menu/myfunc2")
 
 /////log
 global.ownernumber = '17188785916' 
-//client_main/database
-let ntilinkall =JSON.parse(fs.readFileSync('./client_main/database/antilink.json'))
-let _owner = JSON.parse(fs.readFileSync('./client_main/database/owner.json'))
-let owner = JSON.parse(fs.readFileSync('./client_main/database/owner.json'))
-let _afk = JSON.parse(fs.readFileSync('./client_main/database/afk-user.json'))
-let hit = JSON.parse(fs.readFileSync('./client_main/database/total-hit-user.json'))
+//client_main/client_data
+let ntilinkall =JSON.parse(fs.readFileSync('./client_main/client_data/antilink.json'))
+let _owner = JSON.parse(fs.readFileSync('./client_main/client_data/owner.json'))
+let owner = JSON.parse(fs.readFileSync('./client_main/client_data/owner.json'))
+let _afk = JSON.parse(fs.readFileSync('./client_main/client_data/afk-user.json'))
+let hit = JSON.parse(fs.readFileSync('./client_main/client_data/total-hit-user.json'))
 
 //time
 const replay = (teks) => {
@@ -210,10 +210,10 @@ list.push({
         if (command) {
             const cmdadd = () => {
                 hit[0].hit_cmd += 1
-                fs.writeFileSync('./client_main/database/total-hit-user.json', JSON.stringify(hit))
+                fs.writeFileSync('./client_main/client_data/total-hit-user.json', JSON.stringify(hit))
             }
             cmdadd()
-            const totalhit = JSON.parse(fs.readFileSync('./client_main/database/total-hit-user.json'))[0].hit_cmd
+            const totalhit = JSON.parse(fs.readFileSync('./client_main/client_data/total-hit-user.json'))[0].hit_cmd
         }
         
 
@@ -234,7 +234,7 @@ list.push({
                 let getTime = Date.now() - afk.getAfkTime(getId, _afk)
                 let heheh = ms(getTime)
                 _afk.splice(afk.getAfkPosition(m.sender, _afk), 1)
-                fs.writeFileSync('./client_main/database/afk-user.json', JSON.stringify(_afk))
+                fs.writeFileSync('./client_main/client_data/afk-user.json', JSON.stringify(_afk))
                 Client.sendTextWithMentions(m.chat, `@${m.sender.split('@')[0]} have returned from afk`, m)
             }
         }
@@ -279,7 +279,7 @@ Client.sendMessage(from, {text:`\`\`\`「 Link Detected 」\`\`\`\n\n@${m.sender
 if (args[0] === "on") {
 if (AntiLinkAll) return reply('Already activated')
 ntilinkall.push(from)
-fs.writeFileSync('./client_main/database/antilink.json', JSON.stringify(ntilinkall))
+fs.writeFileSync('./client_main/client_data/antilink.json', JSON.stringify(ntilinkall))
 reply('Success in turning on all antilink in this group')
 var groupe = await Client.groupMetadata(from)
 var members = groupe['participants']
@@ -292,7 +292,7 @@ Client.sendMessage(from, {text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf y
 if (!AntiLinkAll) return reply('Already deactivated')
 let off = ntilinkall.indexOf(from)
 ntilinkall.splice(off, 1)
-fs.writeFileSync('./client_main/database/antilinkall.json', JSON.stringify(ntilinkall))
+fs.writeFileSync('./client_main/client_data/antilinkall.json', JSON.stringify(ntilinkall))
 reply('Success in turning off all antilink in this group')
 } else {
   await reply(`Please Type The Option\n\nExample: ${prefix + command} on\nExample: ${prefix + command} off\n\non to enable\noff to disable`)
@@ -1061,7 +1061,7 @@ bnnd = q.split("|")[0].replace(/[^0-9]/g, '')
 let ceknye = await Client.onWhatsApp(bnnd)
 if (ceknye.length == 0) return reply(`Enter A Valid And Registered Number On WhatsApp!!!`)
 owner.push(bnnd)
-fs.writeFileSync('./client_main/database/owner.json', JSON.stringify(owner))
+fs.writeFileSync('./client_main/client_data/owner.json', JSON.stringify(owner))
 reply(`Number ${bnnd} Has Become An owner!!!`)
 break
 case 'delowner':
@@ -1070,7 +1070,7 @@ if (!args[0]) return reply(`Use ${prefix+command} nomor\nExample ${prefix+comman
 ya = q.split("|")[0].replace(/[^0-9]/g, '')
 unp = owner.indexOf(ya)
 owner.splice(unp, 1)
-fs.writeFileSync('./client_main/database/owner.json', JSON.stringify(owner))
+fs.writeFileSync('./client_main/client_data/owner.json', JSON.stringify(owner))
 reply(`The Numbrr ${ya} Has been deleted from owner list by the owner!!!`)
 break
             
