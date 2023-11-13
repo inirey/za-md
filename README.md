@@ -1,4 +1,4 @@
-div align="center">
+<div align="center">
 <img alt="GitHub" src="https://img.shields.io/badge/SIMPLE%20BOTWEA-25D32?style=for-the-badge&logoColor=darkgreen"/>
  <p>
   <img src ="https://img.shields.io/badge/npm-v2.5.1-green.svg" />
